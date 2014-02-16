@@ -42,6 +42,10 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -54,17 +58,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\core\Collections\DataValueDictionary.cs">
+      <Link>Collections\DataValueDictionary.cs</Link>
+    </Compile>
+    <Compile Include="..\core\Collections\DataValueDictionaryGeneric.cs">
+      <Link>Collections\DataValueDictionaryGeneric.cs</Link>
+    </Compile>
     <Compile Include="..\core\Collections\ObservableDataValueDictionary.cs">
       <Link>Collections\ObservableDataValueDictionary.cs</Link>
     </Compile>
     <Compile Include="..\core\Collections\ObservableDictionary.cs">
       <Link>Collections\ObservableDictionary.cs</Link>
     </Compile>
+    <Compile Include="..\core\Enumerations\ContentType.cs">
+      <Link>Enumeration\ContentType.cs</Link>
+    </Compile>
     <Compile Include="..\core\IoC.cs">
       <Link>IoC.cs</Link>
     </Compile>
     <Compile Include="..\core\LinqExtensions.cs">
       <Link>LinqExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\core\Serialization\IConverter.cs">
+      <Link>Serialization\IConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\core\Serialization\JSONConverter.cs">
+      <Link>Serialization\JSONConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\core\Serialization\SafeCamelJSONConverter.cs">
+      <Link>Serialization\SafeCamelJSONConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\core\Serialization\SafeJSONConverter.cs">
+      <Link>Serialization\SafeJSONConverter.cs</Link>
     </Compile>
     <Compile Include="..\core\UriHelper.cs">
       <Link>UriHelper.cs</Link>
