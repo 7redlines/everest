@@ -73,11 +73,29 @@
     <Compile Include="..\core\Enumerations\ContentType.cs">
       <Link>Enumeration\ContentType.cs</Link>
     </Compile>
-    <Compile Include="..\core\IoC.cs">
-      <Link>IoC.cs</Link>
+    <Compile Include="..\core\HttpExtensions.cs">
+      <Link>HttpExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\core\IoC\DependencyAttribute.cs">
+      <Link>IoC\DependencyAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\core\IoC\DependencyResolver.cs">
+      <Link>IoC\DependencyResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\core\IoC\Enums.cs">
+      <Link>IoC\Enums.cs</Link>
+    </Compile>
+    <Compile Include="..\core\IoC\IDependencyResolver.cs">
+      <Link>IoC\IDependencyResolver.cs</Link>
+    </Compile>
+    <Compile Include="..\core\IoC\IoC.cs">
+      <Link>IoC\IoC.cs</Link>
     </Compile>
     <Compile Include="..\core\LinqExtensions.cs">
       <Link>LinqExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\core\MessengerExtensions.cs">
+      <Link>MessengerExtensions.cs</Link>
     </Compile>
     <Compile Include="..\core\Serialization\IConverter.cs">
       <Link>Serialization\IConverter.cs</Link>
@@ -90,6 +108,9 @@
     </Compile>
     <Compile Include="..\core\Serialization\SafeJSONConverter.cs">
       <Link>Serialization\SafeJSONConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\core\StringExtensions.cs">
+      <Link>StringExtensions.cs</Link>
     </Compile>
     <Compile Include="..\core\UriHelper.cs">
       <Link>UriHelper.cs</Link>

@@ -36,7 +36,7 @@ using System.Windows.Markup;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: XmlnsPrefix("http://schemas.7redlines.com/xaml", "7redlines")]
+[assembly: XmlnsPrefix("http://schemas.7redlines.com/xaml", "se7en")]
 [assembly: XmlnsDefinition("http://schemas.7redlines.com/xaml", "Se7enRedLines.UI")]
 [assembly: XmlnsDefinition("http://schemas.7redlines.com/xaml", "Se7enRedLines.UI.Actions")]
 [assembly: XmlnsDefinition("http://schemas.7redlines.com/xaml", "Se7enRedLines.UI.Behaviors")]
