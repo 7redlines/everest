@@ -38,6 +38,7 @@ namespace Se7enRedLines.UI.Converters
             const int HOUR = 60 * MINUTE;
             const int DAY = 24 * HOUR;
             const int MONTH = 30 * DAY;
+            const int YEAR = 12*MONTH;
 
             var ts = new TimeSpan(DateTime.Now.Ticks - value.Ticks);
             double delta = Math.Abs(ts.TotalSeconds);
@@ -48,6 +49,11 @@ namespace Se7enRedLines.UI.Converters
             }
             if (delta < 1 * MINUTE)
             {
+                if (ts.Seconds == 0)
+                {
+                    return "just now";
+                }
+
                 return ts.Seconds == 1 ? "one second ago" : ts.Seconds + " seconds ago";
             }
             if (delta < 2 * MINUTE)
@@ -79,10 +85,14 @@ namespace Se7enRedLines.UI.Converters
                 int months = (int) Math.Floor((double)ts.Days / 30);
                 return months <= 1 ? "one month ago" : months + " months ago";
             }
+            if (delta < 3*YEAR)
+            {
+                int years = (int) Math.Floor((double) ts.Days/365);
+                return years <= 1 ? "one year ago" : years + " years ago";
+            }
             else
             {
-                int years = (int) Math.Floor((double)ts.Days / 365);
-                return years <= 1 ? "one year ago" : years + " years ago";
+                return "really long time ago";
             }
 
         }
