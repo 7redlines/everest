@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Threading;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Threading;
 using Se7enRedLines.Collections;
 using Se7enRedLines.UI.Command;
 
@@ -106,10 +106,20 @@ namespace Se7enRedLines.UI.MVVM
         #endregion
 
         //======================================================
+        #region _Private, protected, internal properties_
+
+        public Dispatcher Dispatcher { get; set; }
+
+        #endregion
+
+        //======================================================
         #region _Publi methods_
 
         public void InitializeInternal()
         {
+            if (Dispatcher == null)
+                throw new InvalidOperationException("Dispatcher should be assigned before calling Initialize method.");
+
             if (!_isInitialized)
             {
                 Initialize();
@@ -164,13 +174,13 @@ namespace Se7enRedLines.UI.MVVM
             {
                 var command = Commands[name];
 
-                DispatcherHelper.RunAsync(() =>
-                    {
-                        if (enable.HasValue)
-                            command.IsEnable = enable.Value;
-                        if (visible.HasValue)
-                            command.IsVisible = visible.Value;
-                    });
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    if (enable.HasValue)
+                        command.IsEnabled = enable.Value;
+                    if (visible.HasValue)
+                        command.IsVisible = visible.Value;
+                }));
             }
         }
 
@@ -207,32 +217,51 @@ namespace Se7enRedLines.UI.MVVM
             SetValue(key, (object)null);
         }
 
-        /// <summary>
-        /// Uses SmartDispatcher.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
         protected virtual void SetValue<T>(string key, T value)
         {
-            DispatcherHelper.RunAsync(() =>
+#if DEBUG
+            if (IsInDesignMode)
             {
                 DataValue v;
                 if (!Values.TryGetValue(key, out v))
                     Values[key] = new DataValue(value);
                 else
                     v.Value = value;
-            });
+            }
+            else
+            {
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    DataValue v;
+                    if (!Values.TryGetValue(key, out v))
+                        Values[key] = new DataValue(value);
+                    else
+                        v.Value = value;
+                }));
+            }
+#else
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                DataValue v;
+                if (!Values.TryGetValue(key, out v))
+                    Values[key] = new DataValue(value);
+                else
+                    v.Value = value;
+            }));
+#endif
         }
 
         protected virtual T GetValue<T>(string key)
         {
+            if (!Values.ContainsKey(key))
+                return default(T);
+
             return (T)Values[key].Value;
         }
 
         protected virtual DataValue GetValue(string key)
         {
-            return Values[key];
+            return !Values.ContainsKey(key) ? null : Values[key];
         }
 
         // --------------------------------------------------- busy ------------------------------------------------------- //
@@ -250,9 +279,7 @@ namespace Se7enRedLines.UI.MVVM
 
         protected void ChangeBusy(string status, double value, bool? isIntermidiate)
         {
-            BusyValue busy = null;
-
-            busy = Busy.Text == status ? Busy : _busyStack.FirstOrDefault(b => b.Text == status);
+            var busy = Busy.Text == status ? Busy : _busyStack.FirstOrDefault(b => b.Text == status);
 
             if (busy != null)
             {

@@ -10,10 +10,10 @@ namespace Se7enRedLines.UI.Command
         //======================================================
         #region _Constructors_
 
-        protected CommandBase(string name, bool isEnable = true)
+        protected CommandBase(string name, bool isEnabled = true)
         {
             Name = name;
-            IsEnable = isEnable;
+            IsEnabled = isEnabled;
             IsVisible = true;
         }
 
@@ -43,19 +43,19 @@ namespace Se7enRedLines.UI.Command
             }
         }
 
-        protected bool _isEnable;
+        protected bool _isEnabled;
         /// <summary>
         /// Gets or sets enable parameter of command.
         /// </summary>
-        public bool IsEnable
+        public bool IsEnabled
         {
-            get { return _isEnable; }
+            get { return _isEnabled; }
             set
             {
-                if (_isEnable != value)
+                if (_isEnabled != value)
                 {
-                    _isEnable = value;
-                    RaisePropertyChanged("IsEnable");
+                    _isEnabled = value;
+                    RaisePropertyChanged("IsEnabled");
                     RaiseCanExecuteChanged();
                 }
             }

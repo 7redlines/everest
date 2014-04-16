@@ -3,12 +3,12 @@ using GalaSoft.MvvmLight.Threading;
 
 namespace Se7enRedLines.UI.MVVM
 {
-    public class PageViewModel : ViewModel
+    public abstract class UserControlViewModel : ViewModel
     {
         //======================================================
         #region _Constructors_
 
-        public PageViewModel()
+        public UserControlViewModel()
         {
 #if DEBUG
             if (IsInDesignMode)
@@ -24,22 +24,7 @@ namespace Se7enRedLines.UI.MVVM
         //======================================================
         #region _Public properties_
 
-        public PageBase Page { get; set; }
-
-        #endregion
-
-        //======================================================
-        #region _Public methods_
-
-        public virtual void OnNavigatedTo(object extraData = null)
-        {
-
-        }
-
-        public virtual void OnNavigatingFrom(object extraData = null)
-        {
-
-        }
+        public UserControlBase Control { get; set; }
 
         #endregion
 

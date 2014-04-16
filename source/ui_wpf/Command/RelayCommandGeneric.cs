@@ -19,12 +19,12 @@ namespace Se7enRedLines.UI.Command
         /// </summary>
         /// <param name="name"></param>
         /// <param name="execute">The execution logic.</param>
-        /// <param name="isEnable">The enabled command status.</param>
+        /// <param name="isEnabled>The enabled command status.</param>
         /// <param name="isVisible">The visible command status.</param>
         /// <param name="canExecute">The execution status logic.</param>
         /// <exception cref="ArgumentNullException">If the execute argument is null.</exception>
-        public RelayCommand(string name, Action<T> execute, bool isEnable, bool isVisible, Predicate<T> canExecute = null)
-            : base(name, isEnable)
+        public RelayCommand(string name, Action<T> execute, bool isEnabled, bool isVisible, Predicate<T> canExecute = null)
+            : base(name, isEnabled)
         {
             if (execute == null)
                 throw new ArgumentNullException("execute");
@@ -47,7 +47,7 @@ namespace Se7enRedLines.UI.Command
         /// <returns>true if this command can be executed; otherwise, false.</returns>
         public override bool CanExecute(object parameter)
         {
-            return IsEnable && (_canExecute == null || _canExecute((T)parameter));
+            return IsEnabled && (_canExecute == null || _canExecute((T)parameter));
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Se7enRedLines.UI.Command
         /// to be passed, this object can be set to a null reference</param>
         public override void Execute(object parameter)
         {
-            if (IsEnable)
+            if (IsEnabled)
                 _execute((T)parameter);
             else
                 throw new InvalidOperationException("Cannot execute command in disable state.");

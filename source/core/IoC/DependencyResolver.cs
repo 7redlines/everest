@@ -116,6 +116,10 @@ namespace Se7enRedLines
 #endif
                     if (constructorInfos.Length > 1)
                         throw new Exception("Cannot resolve a type that has more than one constructor.");
+
+                    if (constructorInfos.Length == 0)
+                        throw new Exception("No type registered");
+
                     var constructor = constructorInfos[0];
                     var parameterInfos = constructor.GetParameters();
                     if (parameterInfos.Length == 0)

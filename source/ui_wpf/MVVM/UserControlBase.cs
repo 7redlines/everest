@@ -1,30 +1,41 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using GalaSoft.MvvmLight;
 
 namespace Se7enRedLines.UI.MVVM
 {
-    public class PageBase : Page, ICleanup
+    public class UserControlBase : UserControl, ICleanup
     {
         //======================================================
         #region _Public properties_
 
-        public PageViewModel Model
+        public UserControlViewModel Model
         {
-            get { return (PageViewModel)DataContext; }
+            get
+            {
+                return RootElement.DataContext as UserControlViewModel;
+            }
             set
             {
-                if (DataContext != value)
+                if (RootElement.DataContext != value)
                 {
                     if (value != null)
                     {
-                        value.Page = this;
+                        value.Control = this;
                         value.Dispatcher = Dispatcher;
                         if (!UIEnvironment.IsInDesignMode)
+                        {
                             value.InitializeInternal();
+                        }
                     }
-                    DataContext = value;
+                    RootElement.DataContext = value;
                 }
             }
+        }
+
+        public FrameworkElement RootElement
+        {
+            get { return Content as FrameworkElement; }
         }
 
         #endregion

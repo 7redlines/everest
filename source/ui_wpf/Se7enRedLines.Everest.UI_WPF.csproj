@@ -61,6 +61,7 @@
     <Compile Include="Actions\SelectAllAction.cs" />
     <Compile Include="Actions\SetFocusAction.cs" />
     <Compile Include="Actions\UnfocusAction.cs" />
+    <Compile Include="Behaviors\RadioButtonAsToggleBehavior.cs" />
     <Compile Include="Behaviors\UpdateSourceAction.cs" />
     <Compile Include="Command\CommandBase.cs" />
     <Compile Include="Command\RelayCommand.cs" />
@@ -71,11 +72,15 @@
     <Compile Include="Converters\CommonVisibilityConverter.cs" />
     <Compile Include="Converters\EnumConverter.cs" />
     <Compile Include="Converters\InverseConverter.cs" />
+    <Compile Include="Converters\CommandPathConverter.cs" />
+    <Compile Include="Converters\MultipleToTupleConverter.cs" />
     <Compile Include="Converters\TimeAgoConverter.cs" />
     <Compile Include="Extensions\AnimationHelper.cs" />
     <Compile Include="Extensions\ChildrenFinder.cs" />
     <Compile Include="MVVM\PageBase.cs" />
     <Compile Include="MVVM\PageViewModel.cs" />
+    <Compile Include="MVVM\UserControlBase.cs" />
+    <Compile Include="MVVM\UserControlViewModel.cs" />
     <Compile Include="MVVM\ViewModel.cs" />
     <Compile Include="MVVM\WindowBase.cs" />
     <Compile Include="MVVM\WindowViewModel.cs" />

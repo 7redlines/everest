@@ -1,9 +1,9 @@
-using System.Windows.Controls;
+using System.Windows;
 using System.Windows.Interactivity;
 
 namespace Se7enRedLines.UI.Actions
 {
-    public class SetFocusAction : TargetedTriggerAction<Control>
+    public class SetFocusAction : TargetedTriggerAction<FrameworkElement>
     {
         //======================================================
         #region _Public methods_

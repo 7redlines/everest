@@ -1,8 +1,10 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using GalaSoft.MvvmLight;
 
 namespace Se7enRedLines.UI.MVVM
 {
-    public class WindowBase : Window
+    public class WindowBase : Window, ICleanup
     {
         //======================================================
         #region _Constructors_
@@ -39,7 +41,9 @@ namespace Se7enRedLines.UI.MVVM
                     if (value != null)
                     {
                         value.Window = this;
-                        value.InitializeInternal();
+                        value.Dispatcher = Dispatcher;
+                        if (!UIEnvironment.IsInDesignMode)
+                            value.InitializeInternal();
                     }
                     DataContext = value;
                 }
@@ -64,6 +68,17 @@ namespace Se7enRedLines.UI.MVVM
         #endregion
 
         //======================================================
+        #region _Public methods_
+
+        public virtual void Cleanup()
+        {
+            if (Model != null)
+                Model.Cleanup();
+        }
+
+        #endregion
+
+        //======================================================
         #region _Private, protected, internal methods_
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
@@ -73,6 +88,13 @@ namespace Se7enRedLines.UI.MVVM
                 e.Cancel = true;
             }
             base.OnClosing(e);
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            Cleanup();
+
+            base.OnClosed(e);
         }
 
         #endregion
