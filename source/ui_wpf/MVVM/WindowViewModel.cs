@@ -1,27 +1,9 @@
-﻿using System.Diagnostics;
-using System.Windows;
-using GalaSoft.MvvmLight.Threading;
+﻿using System.Windows;
 
 namespace Se7enRedLines.UI.MVVM
 {
     public class WindowViewModel : ViewModel
     {
-        //======================================================
-        #region _Constructors_
-
-        public WindowViewModel()
-        {
-#if DEBUG
-            if (IsInDesignMode)
-            {
-                DispatcherHelper.Initialize();
-                InitializeDesignTime();
-            }
-#endif
-        }
-
-        #endregion
-
         //======================================================
         #region _Public properties_
 
@@ -69,28 +51,32 @@ namespace Se7enRedLines.UI.MVVM
             IsActive = Window.IsActive;
         }
 
-        [Conditional("DEBUG")]
-        protected virtual void InitializeDesignTime()
+        internal bool OnClosingInternal()
         {
+            return OnClosing();
+        }
+
+        protected virtual bool OnClosing()
+        {
+            return true;
+        }
+
+        internal void OnClosedInternal()
+        {
+            Cleanup();
+            OnClosed();
+        }
+
+        protected virtual void OnClosed()
+        {
+        }
+
+        protected override void InitializeDesignTime()
+        {
+            base.InitializeDesignTime();
+
             IsMaximized = false;
         }
-
-#if DEBUG
-        protected bool Set<T>(string propertyName, ref T field, T value)
-        {
-            if (IsInDesignMode)
-            {
-                if (Equals(field, null))
-                {
-                    field = value;
-                }
-
-                return true;
-            }
-
-            return base.Set(propertyName, ref field, value);
-        }
-#endif
 
         #endregion
     }

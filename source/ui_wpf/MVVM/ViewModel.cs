@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Threading;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Threading;
 using Se7enRedLines.Collections;
 using Se7enRedLines.UI.Command;
 
@@ -74,6 +76,14 @@ namespace Se7enRedLines.UI.MVVM
             Commands = new ObservableDataValueDictionary<CommandBase>();
             Events = new ObservableDataValueDictionary<CommandBase>();
             Values = new ObservableDataValueDictionary<DataValue>();
+
+#if DEBUG
+            if (IsInDesignMode)
+            {
+                DispatcherHelper.Initialize();
+                InitializeDesignTime();
+            }
+#endif
         }
 
         #endregion
@@ -136,6 +146,12 @@ namespace Se7enRedLines.UI.MVVM
         {
         }
 
+        [Conditional("DEBUG")]
+        protected virtual void InitializeDesignTime()
+        {
+
+        }
+
         // ------------------------------------------------- Commands ------------------------------------------------------- //
 
         protected virtual CommandBase AddCommand(string name, Action command)
@@ -174,7 +190,7 @@ namespace Se7enRedLines.UI.MVVM
             {
                 var command = Commands[name];
 
-                Dispatcher.BeginInvoke(new Action(() =>
+                Dispatcher.Invoke(new Action(() =>
                 {
                     if (enable.HasValue)
                         command.IsEnabled = enable.Value;
@@ -203,6 +219,19 @@ namespace Se7enRedLines.UI.MVVM
             var h = new RelayCommand<T>(name, handler, true, true);
             Events.Add(name, h);
             return h;
+        }
+
+        protected virtual void ChangeEventState(string name, bool enable)
+        {
+            if (Events.ContainsKey(name))
+            {
+                var command = Events[name];
+
+                Dispatcher.Invoke(new Action(() =>
+                {
+                    command.IsEnabled = enable;
+                }));
+            }
         }
 
         protected virtual bool RemoveEvent(string name)
@@ -250,6 +279,23 @@ namespace Se7enRedLines.UI.MVVM
             }));
 #endif
         }
+
+#if DEBUG
+        protected bool Set<T>(string propertyName, ref T field, T value)
+        {
+            if (IsInDesignMode)
+            {
+                if (Equals(field, null))
+                {
+                    field = value;
+                }
+
+                return true;
+            }
+
+            return base.Set(propertyName, ref field, value);
+        }
+#endif
 
         protected virtual T GetValue<T>(string key)
         {

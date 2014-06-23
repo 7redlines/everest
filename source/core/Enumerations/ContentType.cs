@@ -13,6 +13,11 @@ namespace Se7enRedLines
         public const string Xml = "text/xml";
 
         /// <summary>
+        /// test/xml
+        /// </summary>
+        public const string XmlApp = "application/xml";
+
+        /// <summary>
         /// application/zip
         /// </summary>
         public const string Zip = "application/zip";

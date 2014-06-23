@@ -22,8 +22,6 @@ namespace Se7enRedLines.UI.MVVM
                 var newEventArgs = new RoutedEventArgs(DeactivatedEvent);
                 RaiseEvent(newEventArgs);
             };
-
-            CanBeClosed = true;
         }
 
         #endregion
@@ -63,8 +61,6 @@ namespace Se7enRedLines.UI.MVVM
             remove { RemoveHandler(DeactivatedEvent, value); }
         }
 
-        public bool CanBeClosed { get; set; }
-
         #endregion
 
         //======================================================
@@ -83,15 +79,13 @@ namespace Se7enRedLines.UI.MVVM
 
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
-            if (!CanBeClosed)
-            {
-                e.Cancel = true;
-            }
             base.OnClosing(e);
+            e.Cancel = e.Cancel || !Model.OnClosingInternal();
         }
 
         protected override void OnClosed(EventArgs e)
         {
+            Model.OnClosedInternal();
             Cleanup();
 
             base.OnClosed(e);
