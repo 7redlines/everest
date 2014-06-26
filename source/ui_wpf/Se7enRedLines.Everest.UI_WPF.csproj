@@ -78,6 +78,9 @@
     <Compile Include="Converters\TimeAgoConverter.cs" />
     <Compile Include="Extensions\AnimationHelper.cs" />
     <Compile Include="Extensions\ChildrenFinder.cs" />
+    <Compile Include="Input\KeyboardHelper.cs" />
+    <Compile Include="Input\KeyboardHook.cs" />
+    <Compile Include="Input\MouseHook.cs" />
     <Compile Include="MVVM\PageBase.cs" />
     <Compile Include="MVVM\PageViewModel.cs" />
     <Compile Include="MVVM\UserControlBase.cs" />
@@ -85,6 +88,10 @@
     <Compile Include="MVVM\ViewModel.cs" />
     <Compile Include="MVVM\WindowBase.cs" />
     <Compile Include="MVVM\WindowViewModel.cs" />
+    <Compile Include="Native\NativeMethods.cs" />
+    <Compile Include="Native\WinData.cs" />
+    <Compile Include="Native\WinHook.cs" />
+    <Compile Include="Native\WinInputNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Triggers\DoubleClickTrigger.cs" />
     <Compile Include="TypeConverterHelper.cs" />
