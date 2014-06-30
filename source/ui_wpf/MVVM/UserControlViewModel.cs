@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using GalaSoft.MvvmLight.Threading;
-
-namespace Se7enRedLines.UI.MVVM
+﻿namespace Se7enRedLines.UI.MVVM
 {
     public abstract class UserControlViewModel : ViewModel
     {

@@ -24,6 +24,12 @@ namespace Se7enRedLines.UI.Native
         [DllImport("kernel32.dll")]
         public static extern IntPtr GetModuleHandle(string lpModuleName);
 
+        [DllImport("gdi32.dll")]
+        public static extern bool DeleteObject(IntPtr hObject);
+
+        [DllImport("user32.dll", EntryPoint = "GetDoubleClickTime")]
+        private static extern uint GetDoubleClickTimeNative();
+
         #endregion
 
         //======================================================
@@ -36,6 +42,11 @@ namespace Se7enRedLines.UI.Native
             {
                 return SetWindowsHookEx(hookType, hookProc, GetModuleHandle(currentModule.ModuleName), 0);
             }
+        }
+
+        public static TimeSpan GetDoubleClickTime()
+        {
+            return TimeSpan.FromMilliseconds(GetDoubleClickTimeNative());
         }
 
         #endregion

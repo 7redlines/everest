@@ -124,7 +124,7 @@ namespace Se7enRedLines.UI.MVVM
 
         //======================================================
         #region _Publi methods_
-
+        
         public void InitializeInternal()
         {
             if (Dispatcher == null)

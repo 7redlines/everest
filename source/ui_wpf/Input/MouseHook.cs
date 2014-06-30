@@ -159,7 +159,6 @@ namespace Se7enRedLines.UI
                         clickCount = 2;
                         break;
                     case WinInputNotification.WM_MOUSEMOVE:
-                        Debug.WriteLine("MOUSEMOVE");
                         break;
                     default:
                         break;
