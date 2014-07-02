@@ -119,7 +119,7 @@ namespace Se7enRedLines.UI
             if (nCode >= 0)
             {
                 //Marshall the data from callback.
-                var hookData = (MSLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(MSLLHOOKSTRUCT));
+                var hookData = (MSLLHOOKSTRUCT) Marshal.PtrToStructure(lParam, typeof (MSLLHOOKSTRUCT));
 
                 //detect button clicked
                 MouseButton? button = null;
@@ -263,40 +263,85 @@ namespace Se7enRedLines.UI
         {
             Contract.Requires(e != null);
 
-            if (_mouseDown != null)
-                _mouseDown(null, e);
+            e.RoutedEvent = Mouse.MouseDownEvent;
+
+            try
+            {
+                if (_mouseDown != null)
+                    _mouseDown(null, e);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.ToString());
+            }
         }
 
         private static void RaiseMouseMove(MouseEventArgs e)
         {
             Contract.Requires(e != null);
 
-            if (_mouseMove != null)
-                _mouseMove(null, e);
+            e.RoutedEvent = Mouse.MouseMoveEvent;
+
+            try
+            {
+                if (_mouseMove != null)
+                    _mouseMove(null, e);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.ToString());
+            }
         }
 
         private static void RaiseMouseUp(MouseButtonEventArgs e)
         {
             Contract.Requires(e != null);
 
-            if (_mouseUp != null)
-                _mouseUp(null, e);
+            e.RoutedEvent = Mouse.MouseUpEvent;
+
+            try
+            {
+                if (_mouseUp != null)
+                    _mouseUp(null, e);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.ToString());
+            }
         }
 
         private static void RaiseMouseClick(MouseButtonEventArgs e)
         {
             Contract.Requires(e != null);
 
-            if (_mouseClick != null)
-                _mouseClick(null, e);
+            e.RoutedEvent = Mouse.MouseUpEvent;
+
+            try
+            {
+                if (_mouseClick != null)
+                    _mouseClick(null, e);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.ToString());
+            }
         }
 
         private static void RaiseMouseDoubleClick(MouseButtonEventArgs e)
         {
             Contract.Requires(e != null);
 
-            if (_mouseDoubleClick != null)
-                _mouseDoubleClick(null, e);
+            e.RoutedEvent = Mouse.MouseUpEvent;
+
+            try
+            {
+                if (_mouseDoubleClick != null)
+                    _mouseDoubleClick(null, e);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.ToString());
+            }
         }
 
         #endregion

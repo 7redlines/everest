@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -147,16 +148,35 @@ namespace Se7enRedLines.UI
         {
             Contract.Requires(e != null);
 
-            if (_keyDown != null)
-                _keyDown(null, e);
+            e.RoutedEvent = Keyboard.KeyDownEvent;
+
+            try
+            {
+                if (_keyDown != null)
+                    _keyDown(null, e);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.ToString());
+            }
         }
 
         private static void RaiseKeyUp(KeyEventArgs e)
         {
             Contract.Requires(e != null);
 
-            if (_keyUp != null)
-                _keyUp(null, e);
+            e.RoutedEvent = Keyboard.KeyUpEvent;
+
+            try
+            {
+                if (_keyUp != null)
+                    _keyUp(null, e);
+
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.ToString());
+            }
         }
 
         #endregion
