@@ -1,6 +1,6 @@
 ﻿namespace Se7enRedLines.UI.Native
 {
-    public static class WinInputNotification
+    public static class MouseInputNotification
     {
         /// <summary>
         /// The WM_LBUTTONDOWN message is posted when the user presses the left mouse button 

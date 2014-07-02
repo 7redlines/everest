@@ -47,6 +47,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\..\processdocumentor-v3\SourceCode\packages\MvvmLightLibs.4.4.32.1\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -76,8 +77,15 @@
     <Compile Include="Converters\CommandPathConverter.cs" />
     <Compile Include="Converters\MultipleToTupleConverter.cs" />
     <Compile Include="Converters\TimeAgoConverter.cs" />
+    <Compile Include="Converters\TimeSpanToNumberConverter.cs" />
     <Compile Include="Extensions\AnimationHelper.cs" />
     <Compile Include="Extensions\ChildrenFinder.cs" />
+    <Compile Include="Input\HotkeyEventArgs.cs" />
+    <Compile Include="Input\HotkeyHook.cs" />
+    <Compile Include="Input\HotkeyInfo.cs" />
+    <Compile Include="Input\HotkeyManager.cs" />
+    <Compile Include="Input\HotkeyStatus.cs" />
+    <Compile Include="Input\HotkeyManagerItem.cs" />
     <Compile Include="Input\KeyboardHelper.cs" />
     <Compile Include="Input\KeyboardHook.cs" />
     <Compile Include="Input\MouseHook.cs" />
@@ -88,10 +96,15 @@
     <Compile Include="MVVM\ViewModel.cs" />
     <Compile Include="MVVM\WindowBase.cs" />
     <Compile Include="MVVM\WindowViewModel.cs" />
+    <Compile Include="Native\KeyboardInpuNotification.cs" />
     <Compile Include="Native\NativeMethods.cs" />
     <Compile Include="Native\WinData.cs" />
     <Compile Include="Native\WinHook.cs" />
-    <Compile Include="Native\WinInputNotification.cs" />
+    <Compile Include="Native\MouseInputNotification.cs" />
+    <Compile Include="Native\WinMsg.cs" />
+    <Compile Include="Native\WinProcHandlerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Triggers\DoubleClickTrigger.cs" />
     <Compile Include="TypeConverterHelper.cs" />

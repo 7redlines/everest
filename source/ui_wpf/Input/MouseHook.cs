@@ -119,7 +119,7 @@ namespace Se7enRedLines.UI
             if (nCode >= 0)
             {
                 //Marshall the data from callback.
-                var mouseHookStruct = (MSLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(MSLLHOOKSTRUCT));
+                var hookData = (MSLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(MSLLHOOKSTRUCT));
 
                 //detect button clicked
                 MouseButton? button = null;
@@ -128,37 +128,37 @@ namespace Se7enRedLines.UI
 
                 switch (wParam.ToInt32())
                 {
-                    case WinInputNotification.WM_LBUTTONDOWN:
+                    case MouseInputNotification.WM_LBUTTONDOWN:
                         buttonState = MouseButtonState.Pressed;
                         button = MouseButton.Left;
                         clickCount = 1;
                         break;
-                    case WinInputNotification.WM_LBUTTONUP:
+                    case MouseInputNotification.WM_LBUTTONUP:
                         buttonState = MouseButtonState.Released;
                         button = MouseButton.Left;
                         clickCount = 1;
                         break;
-                    case WinInputNotification.WM_RBUTTONDOWN:
+                    case MouseInputNotification.WM_RBUTTONDOWN:
                         buttonState = MouseButtonState.Pressed;
                         button = MouseButton.Right;
                         clickCount = 1;
                         break;
-                    case WinInputNotification.WM_RBUTTONUP:
+                    case MouseInputNotification.WM_RBUTTONUP:
                         buttonState = MouseButtonState.Released;
                         button = MouseButton.Right;
                         clickCount = 1;
                         break;
-                    case WinInputNotification.WM_LBUTTONDBLCLK:
+                    case MouseInputNotification.WM_LBUTTONDBLCLK:
                         buttonState = MouseButtonState.Released;
                         button = MouseButton.Left;
                         clickCount = 2;
                         break;
-                    case WinInputNotification.WM_RBUTTONDBLCLK:
+                    case MouseInputNotification.WM_RBUTTONDBLCLK:
                         buttonState = MouseButtonState.Released;
                         button = MouseButton.Right;
                         clickCount = 2;
                         break;
-                    case WinInputNotification.WM_MOUSEMOVE:
+                    case MouseInputNotification.WM_MOUSEMOVE:
                         break;
                     default:
                         break;
@@ -170,16 +170,16 @@ namespace Se7enRedLines.UI
 
                     switch (wParam.ToInt32())
                     {
-                        case WinInputNotification.WM_LBUTTONDOWN:
+                        case MouseInputNotification.WM_LBUTTONDOWN:
                             RaiseMouseDown(e);
                             break;
-                        case WinInputNotification.WM_LBUTTONUP:
+                        case MouseInputNotification.WM_LBUTTONUP:
                             RaiseMouseUp(e);
                             break;
-                        case WinInputNotification.WM_RBUTTONDOWN:
+                        case MouseInputNotification.WM_RBUTTONDOWN:
                             RaiseMouseDown(e);
                             break;
-                        case WinInputNotification.WM_RBUTTONUP:
+                        case MouseInputNotification.WM_RBUTTONUP:
                             RaiseMouseUp(e);
                             break;
                     }
@@ -204,7 +204,7 @@ namespace Se7enRedLines.UI
                         return new IntPtr(-1);
                 }
 
-                if (wParam.ToInt32() == WinInputNotification.WM_MOUSEMOVE)
+                if (wParam.ToInt32() == MouseInputNotification.WM_MOUSEMOVE)
                 {
                     var e = new MouseEventArgs(Mouse.PrimaryDevice, 0);
                     RaiseMouseMove(e);
