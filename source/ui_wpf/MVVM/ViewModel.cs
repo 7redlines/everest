@@ -214,9 +214,23 @@ namespace Se7enRedLines.UI.MVVM
             return h;
         }
 
+        protected virtual CommandBase AddEvent(string name, Action handler, bool enabled)
+        {
+            var h = new RelayCommand(name, handler, enabled, true);
+            Events.Add(name, h);
+            return h;
+        }
+
         protected virtual CommandBase AddEvent<T>(string name, Action<T> handler)
         {
             var h = new RelayCommand<T>(name, handler, true, true);
+            Events.Add(name, h);
+            return h;
+        }
+
+        protected virtual CommandBase AddEvent<T>(string name, Action<T> handler, bool enabled)
+        {
+            var h = new RelayCommand<T>(name, handler, enabled, true);
             Events.Add(name, h);
             return h;
         }
@@ -285,11 +299,7 @@ namespace Se7enRedLines.UI.MVVM
         {
             if (IsInDesignMode)
             {
-                if (Equals(field, null))
-                {
-                    field = value;
-                }
-
+                field = value;
                 return true;
             }
 

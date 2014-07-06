@@ -54,8 +54,15 @@ namespace Se7enRedLines.UI.Converters
                 result = Visibility.Collapsed;
             else
             {
-                var v = TypeConverterHelper.ConvertFromString(value.GetType(), parameter.ToString());
-                result = value.Equals(v) ? Visibility.Visible : Visibility.Collapsed;
+                if (value.GetType() == parameter.GetType())
+                {
+                    result = Equals(value, parameter) ? Visibility.Visible : Visibility.Collapsed;
+                }
+                else
+                {
+                    var v = TypeConverterHelper.ConvertFromString(value.GetType(), parameter.ToString());
+                    result = value.Equals(v) ? Visibility.Visible : Visibility.Collapsed;
+                }
             }
 
             return !Inverse ? result : result == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;

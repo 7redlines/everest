@@ -74,9 +74,6 @@
     <Compile Include="..\core\Enumerations\ContentType.cs">
       <Link>Enumeration\ContentType.cs</Link>
     </Compile>
-    <Compile Include="..\core\HttpExtensions.cs">
-      <Link>HttpExtensions.cs</Link>
-    </Compile>
     <Compile Include="..\core\IoC\DependencyAttribute.cs">
       <Link>IoC\DependencyAttribute.cs</Link>
     </Compile>

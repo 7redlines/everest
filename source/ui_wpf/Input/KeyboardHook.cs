@@ -71,36 +71,45 @@ namespace Se7enRedLines.UI
 
         private static IntPtr OnKeyboardProc(int nCode, IntPtr wParam, IntPtr lParam)
         {
+
             if (nCode >= 0)
             {
-                var handled = false;
-
-                var hookData = (KBDLLHOOKSTRUCT)Marshal.PtrToStructure(lParam, typeof(KBDLLHOOKSTRUCT));
-
-                var keyCode = wParam.ToInt32();
-                if (_keyDown != null &&
-                    (keyCode == KeyboardInpuNotification.WM_KEYDOWN ||
-                     keyCode == KeyboardInpuNotification.WM_SYSKEYDOWN))
+                try
                 {
-                    var e = new KeyEventArgs(Keyboard.PrimaryDevice, Keyboard.PrimaryDevice.ActiveSource, 0,
-                        KeyInterop.KeyFromVirtualKey(hookData.VirtualKeyCode));
-                    RaiseKeyDown(e);
-                    handled = e.Handled;
-                }
+                    var handled = false;
 
-                if (_keyUp != null &&
-                    (keyCode == KeyboardInpuNotification.WM_KEYUP ||
-                     keyCode == KeyboardInpuNotification.WM_SYSKEYUP))
+                    var hookData = (KBDLLHOOKSTRUCT) Marshal.PtrToStructure(lParam, typeof (KBDLLHOOKSTRUCT));
+
+                    var keyCode = wParam.ToInt32();
+                    if (_keyDown != null &&
+                        (keyCode == KeyboardInpuNotification.WM_KEYDOWN ||
+                         keyCode == KeyboardInpuNotification.WM_SYSKEYDOWN))
+                    {
+                        var e = new KeyEventArgs(Keyboard.PrimaryDevice, Keyboard.PrimaryDevice.ActiveSource, 0,
+                            KeyInterop.KeyFromVirtualKey(hookData.VirtualKeyCode));
+                        RaiseKeyDown(e);
+                        handled = e.Handled;
+                    }
+
+                    if (_keyUp != null &&
+                        (keyCode == KeyboardInpuNotification.WM_KEYUP ||
+                         keyCode == KeyboardInpuNotification.WM_SYSKEYUP))
+                    {
+                        var e = new KeyEventArgs(Keyboard.PrimaryDevice, Keyboard.PrimaryDevice.ActiveSource, 0,
+                            KeyInterop.KeyFromVirtualKey(hookData.VirtualKeyCode));
+                        RaiseKeyUp(e);
+                        handled = handled || e.Handled;
+                    }
+
+                    if (handled)
+                        return new IntPtr(-1);
+                }
+                catch (Exception ex)
                 {
-                    var e = new KeyEventArgs(Keyboard.PrimaryDevice, Keyboard.PrimaryDevice.ActiveSource, 0,
-                       KeyInterop.KeyFromVirtualKey(hookData.VirtualKeyCode));
-                    RaiseKeyUp(e);
-                    handled = handled || e.Handled;
+                    Trace.TraceError(ex.ToString());
                 }
-
-                if (handled)
-                    return new IntPtr(-1);
             }
+
 
             //call next hook
             return NativeMethods.CallNextHookEx(_keyboardHookHandle, nCode, wParam, lParam);

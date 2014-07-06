@@ -52,6 +52,11 @@ namespace Se7enRedLines.UI.Converters
                 result = false;
             else
             {
+                if (value.GetType() == parameter.GetType())
+                {
+                    result = Equals(value, parameter);
+                }
+
                 var v = TypeConverterHelper.ConvertFromString(value.GetType(), param);
                 result = value.Equals(v);
             }
@@ -74,7 +79,12 @@ namespace Se7enRedLines.UI.Converters
             if (parameter == null)
                 return null;
 
-            var param = parameter.ToString();
+            if (targetType == parameter.GetType())
+            {
+                var v = !Inverse ? (bool) value : !(bool) value;
+                return v ? parameter : DependencyProperty.UnsetValue;
+            }
+
 #if WinRT
 			// while not fix enum support
 			var p = param.Split('|');
@@ -88,11 +98,13 @@ namespace Se7enRedLines.UI.Converters
             if (typeof(Enum).IsAssignableFrom(targetType))
 #endif
             {
+                var param = parameter.ToString();
                 var v = !Inverse ? (bool)value : !(bool)value;
                 return v ? TypeConverterHelper.ConvertFromString(targetType, param) : DependencyProperty.UnsetValue;
             }
             else
             {
+                var param = parameter.ToString();
                 var v = !Inverse ? (bool)value : !(bool)value;
                 return v ? TypeConverterHelper.ConvertFromString(targetType, param) : DependencyProperty.UnsetValue;
             }

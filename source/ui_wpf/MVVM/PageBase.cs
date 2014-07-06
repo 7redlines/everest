@@ -42,7 +42,7 @@ namespace Se7enRedLines.UI.MVVM
         //======================================================
         #region _Public methods_
 
-        public void Cleanup()
+        public virtual void Cleanup()
         {
             if (Model != null)
                 Model.Cleanup();
