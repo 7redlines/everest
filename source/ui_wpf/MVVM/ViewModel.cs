@@ -190,13 +190,22 @@ namespace Se7enRedLines.UI.MVVM
             {
                 var command = Commands[name];
 
-                Dispatcher.Invoke(new Action(() =>
+                var action = new Action(() =>
                 {
                     if (enable.HasValue)
                         command.IsEnabled = enable.Value;
                     if (visible.HasValue)
                         command.IsVisible = visible.Value;
-                }));
+                });
+
+                if (Dispatcher.CheckAccess())
+                {
+                    action();
+                }
+                else
+                {
+                    Dispatcher.Invoke(action);
+                }
             }
         }
 
