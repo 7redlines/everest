@@ -6,16 +6,6 @@ namespace Se7enRedLines.UI.MVVM
     public class PageBase : Page, ICleanup
     {
         //======================================================
-        #region _Constructors_
-
-        public PageBase()
-        {
-            Unloaded += (sender, args) => Cleanup();
-        }
-
-        #endregion
-
-        //======================================================
         #region _Public properties_
 
         public PageViewModel Model
