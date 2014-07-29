@@ -7,16 +7,6 @@ namespace Se7enRedLines.UI.MVVM
     public class UserControlBase : UserControl, ICleanup
     {
         //======================================================
-        #region _Constructors_
-
-        public UserControlBase()
-        {
-            Unloaded += (sender, args) => Cleanup();
-        }
-
-        #endregion
-
-        //======================================================
         #region _Public properties_
 
         public UserControlViewModel Model

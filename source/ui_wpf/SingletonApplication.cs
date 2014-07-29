@@ -91,6 +91,7 @@ namespace Se7enRedLines.UI
             catch
             {
                 // It's first instance.
+                SaveArgs();
 
                 // Register EventWaitHandle.
                 using (var eventWaitHandle = new EventWaitHandle(true, EventResetMode.AutoReset, eventWaitHandleName))
