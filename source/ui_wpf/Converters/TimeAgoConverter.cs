@@ -16,6 +16,11 @@ namespace Se7enRedLines.UI.Converters
 
             var time = (DateTime) value;
 
+            if (parameter != null)
+            {
+                return time.ToLocalTime().ToString(parameter.ToString());
+            }
+
             return time.Humanize();
         }
 
