@@ -53,6 +53,12 @@ namespace Se7enRedLines.UI
             return result;
         }
 
+        public static void CleanupAll()
+        {
+            Unsubscribe();
+            HotkeyHook.Unregister();
+        }
+
         public static bool AddHotkey(HotkeyInfo hotkey)
         {
             return HotkeyHook.Register(hotkey);
@@ -179,7 +185,20 @@ namespace Se7enRedLines.UI
 
         private static void OnHotKeyPressed(HotkeyEventArgs args)
         {
+            var lists = _subscribtions;
+            if (lists.Count == 0 || !lists.ContainsKey(args.Hotkey.Id))
+                return;
 
+            lock (lists)
+            {
+                foreach (var item in lists[args.Hotkey.Id])
+                {
+                    var weakAction = item.Action;
+
+                    if (weakAction != null && weakAction.IsAlive)
+                        weakAction.Execute(args);
+                }
+            }
         }
 
         private static void Cleanup()

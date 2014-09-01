@@ -134,14 +134,10 @@ namespace Se7enRedLines.UI
 
         private static void CheckHook()
         {
-            if (Registered.Length == 0)
-            {
-                _hotKeyForm.WndProcHandler -= OnWndProc;
-            }
-            else
-            {
+            _hotKeyForm.WndProcHandler -= OnWndProc;
+
+            if (Registered.Length != 0)
                 _hotKeyForm.WndProcHandler += OnWndProc;
-            }
         }
 
         private static bool OnWndProc(object sender, Message msg)
@@ -155,6 +151,7 @@ namespace Se7enRedLines.UI
                 var keyModifiers = (KEYMODIFIERS)((int)msg.LParam & 0xFFFF);
 
                 var gesture = new KeyGesture(KeyInterop.KeyFromVirtualKey(key), keyModifiers.FromVirtual());
+
                 return OnWndHotkey(id, gesture);
             }
 

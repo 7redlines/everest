@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace Se7enRedLines.UI.Native
 {
@@ -21,7 +22,10 @@ namespace Se7enRedLines.UI.Native
             if (WndProcHandler != null)
             {
                 if (WndProcHandler(this, m))
+                {
+                    m.Result = new IntPtr(1);
                     return;
+                }
             }
 
             base.WndProc(ref m);
