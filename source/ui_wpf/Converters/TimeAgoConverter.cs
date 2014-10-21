@@ -21,7 +21,7 @@ namespace Se7enRedLines.UI.Converters
                 return time.ToLocalTime().ToString(parameter.ToString());
             }
 
-            return time.Humanize();
+            return time.Humanize(culture: CultureInfo.GetCultureInfo("en"));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
