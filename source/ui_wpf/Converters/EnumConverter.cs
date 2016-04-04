@@ -47,13 +47,19 @@ namespace Se7enRedLines.UI.Converters
                 if (param == "array")
                     return values.Values;
 
-                return values[System.Convert.ToInt64(value)];
+                if (values.ContainsKey(System.Convert.ToInt64(value)))
+                    return values[System.Convert.ToInt64(value)];
+
+                return type.IsValueType ? Activator.CreateInstance(type) : null;
             }
 
             if (param == "array")
                 return _cache[type].Values;
 
-            return _cache[type][System.Convert.ToInt64(value)];
+            if (_cache[type].ContainsKey(System.Convert.ToInt64(value)))
+                return _cache[type][System.Convert.ToInt64(value)];
+
+            return type.IsValueType ? Activator.CreateInstance(type) : null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
