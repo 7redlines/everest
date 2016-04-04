@@ -170,9 +170,13 @@ namespace Se7enRedLines.UI
         private static bool RaiseHotkeyPressed(HotkeyInfo hotkey)
         {
             if (HotkeyPressed != null)
-                HotkeyPressed(new HotkeyEventArgs(hotkey));
+            {
+                var e = new HotkeyEventArgs(hotkey);
+                HotkeyPressed(e);
+                return e.Handled;
+            }
 
-            return true;
+            return false;
         }
 
         private static bool CheckRepeatLimitTime()

@@ -196,7 +196,10 @@ namespace Se7enRedLines.UI
                     var weakAction = item.Action;
 
                     if (weakAction != null && weakAction.IsAlive)
+                    {
                         weakAction.Execute(args);
+                        args.Handled = true;
+                    }
                 }
             }
         }

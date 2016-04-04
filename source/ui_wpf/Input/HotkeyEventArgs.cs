@@ -19,6 +19,8 @@ namespace Se7enRedLines.UI
 
         public HotkeyInfo Hotkey { get; protected set; }
 
+        public bool Handled { get; set; }
+
         #endregion
     }
 }
