@@ -85,7 +85,22 @@ namespace Se7enRedLines.UI
             remove
             {
                 _mouseDoubleClick -= value;
+                TryUnhook();
+            }
+        }
+
+        private static event MouseWheelEventHandler _mouseWheel;
+        public static event MouseWheelEventHandler MouseWheel
+        {
+            add
+            {
+                _mouseWheel += value;
                 EnsureHook();
+            }
+            remove
+            {
+                _mouseWheel -= value;
+                TryUnhook();
             }
         }
 
@@ -160,6 +175,8 @@ namespace Se7enRedLines.UI
                         break;
                     case MouseInputNotification.WM_MOUSEMOVE:
                         break;
+                    case MouseInputNotification.WM_MOUSEWHEEL:
+                        break;
                     default:
                         break;
                 }
@@ -212,6 +229,18 @@ namespace Se7enRedLines.UI
                     if (e.Handled)
                         return new IntPtr(-1);
                 }
+
+                if (wParam.ToInt32() == MouseInputNotification.WM_MOUSEWHEEL)
+                {
+                    var loword = BitConverter.ToInt16(BitConverter.GetBytes(hookData.MouseData), 0); ;
+                    var hiword = BitConverter.ToInt16(BitConverter.GetBytes(hookData.MouseData), 2); ;
+
+                    var e = new MouseWheelEventArgs(Mouse.PrimaryDevice, hookData.Time, loword < 0 ? -hiword : hiword);
+                    RaiseMouseWheel(e);
+
+                    if (e.Handled)
+                        return new IntPtr(-1);
+                }
             }
 
             //call next hook
@@ -253,7 +282,8 @@ namespace Se7enRedLines.UI
                 _mouseMove,
                 _mouseUp,
                 _mouseClick,
-                _mouseDoubleClick
+                _mouseDoubleClick,
+                _mouseWheel
             };
 
             return events.Any(e => e != null);
@@ -286,6 +316,23 @@ namespace Se7enRedLines.UI
             {
                 if (_mouseMove != null)
                     _mouseMove(null, e);
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.ToString());
+            }
+        }
+
+        private static void RaiseMouseWheel(MouseWheelEventArgs e)
+        {
+            Contract.Requires(e != null);
+
+            e.RoutedEvent = Mouse.MouseWheelEvent;
+
+            try
+            {
+                if (_mouseWheel != null)
+                    _mouseWheel(null, e);
             }
             catch (Exception ex)
             {

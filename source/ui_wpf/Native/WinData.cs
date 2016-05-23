@@ -184,7 +184,7 @@ namespace Se7enRedLines.UI.Native
         /// <summary>
         /// Specifies a Point structure that contains the X- and Y-coordinates of the cursor, in screen coordinates. 
         /// </summary>
-        public Point Point;
+        public POINT Point;
         /// <summary>
         /// If the message is WM_MOUSEWHEEL, the high-order word of this member is the wheel delta. 
         /// The low-order word is reserved. A positive value indicates that the wheel was rotated forward, 

@@ -47,7 +47,7 @@ namespace Se7enRedLines.UI
             var result = true;
             foreach (var hotkey in hotkeys)
             {
-                result = result && HotkeyHook.Register(hotkey);
+                result = HotkeyHook.Register(hotkey) && result;
             }
 
             return result;

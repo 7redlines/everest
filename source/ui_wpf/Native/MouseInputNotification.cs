@@ -36,5 +36,10 @@
         /// The WM_RBUTTONDBLCLK message is posted when the user double-clicks the right mouse button 
         /// </summary>
         public const int WM_RBUTTONDBLCLK = 0x206;
+
+        /// <summary>
+        /// The WM_MOUSEWHEEL message is posted when the mouse wheel is rotated. 
+        /// </summary>
+        public const int WM_MOUSEWHEEL = 0x020A;
     }
 }

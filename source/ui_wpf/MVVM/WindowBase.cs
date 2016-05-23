@@ -80,12 +80,16 @@ namespace Se7enRedLines.UI.MVVM
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
         {
             base.OnClosing(e);
-            e.Cancel = e.Cancel || !Model.OnClosingInternal();
+
+            if (Model != null)
+                e.Cancel = e.Cancel || !Model.OnClosingInternal();
         }
 
         protected override void OnClosed(EventArgs e)
         {
-            Model.OnClosedInternal();
+            if (Model != null)
+                Model.OnClosedInternal();
+
             Cleanup();
 
             base.OnClosed(e);
