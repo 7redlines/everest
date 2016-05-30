@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Diagnostics;
+using System.Windows;
 
 namespace Se7enRedLines.UI.MVVM
 {
@@ -63,8 +65,23 @@ namespace Se7enRedLines.UI.MVVM
 
         internal void OnClosedInternal()
         {
-            Cleanup();
-            OnClosed();
+            try
+            {
+                Cleanup();
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.Message);
+            }
+
+            try
+            {
+                OnClosed();
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.Message);
+            }
         }
 
         protected virtual void OnClosed()
