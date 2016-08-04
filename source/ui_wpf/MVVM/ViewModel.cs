@@ -209,6 +209,26 @@ namespace Se7enRedLines.UI.MVVM
             }
         }
 
+        protected virtual void ChangeCommandText(string name, string text = "")
+        {
+            text = text ?? string.Empty;
+            var command = Commands[name];
+
+            var action = new Action(() =>
+            {
+                command.Text = text;
+            });
+
+            if (Dispatcher.CheckAccess())
+            {
+                action();
+            }
+            else
+            {
+                Dispatcher.Invoke(action);
+            }
+        }
+
         protected virtual void RemoveCommand(string name)
         {
             Commands.Remove(name);
